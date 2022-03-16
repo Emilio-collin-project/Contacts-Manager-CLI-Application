@@ -6,13 +6,12 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
-
+import java.util.Scanner;
 
 
 public class FileIO {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         try {
 
 
@@ -54,14 +53,36 @@ public class FileIO {
             Files.write(dataFile, contacts); // this overwrites by default
 
 
+            Scanner eb = new Scanner(System.in);
+
+            boolean userContinue = true;
+            do {
+                System.out.println("Would you like to add a new contact? ");
+                int addContacts = eb.nextInt();
+                System.out.println();
+                System.out.println("Here is the updated contact list!");
+                System.out.println();
+                System.out.println("Name  |  Phone Number  |");
+                System.out.println("------ | ------ |");
+                for (int i = 0; i <= addContacts; i++) {
+                    System.out.printf("%-6d", i);
+                    System.out.print(" | ");
+                    System.out.printf("%-7d", i * i);
+                    System.out.print(" | ");
+                    System.out.println(i * i * i);
+                }
+                System.out.println();
+                System.out.println("Would you like enter another contact? (y/n)");
+                String userResponse = eb.next();
+                if (!(userResponse.equalsIgnoreCase("y"))) {
+                    userContinue = false;
+                }
+            } while (userContinue);
+
+            System.out.println("See you later!");
 
 
-
-
-
-
-
-        }catch (IOException e) {
+    }catch (IOException e) {
 //            System.out.println("Hey an exception happened: " + e.getMessage());
             e.printStackTrace();
         }
