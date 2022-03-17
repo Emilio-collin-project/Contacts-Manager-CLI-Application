@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 
 public class FileIO {
+    public static Input input = new Input();
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
         try {
 
 
@@ -53,31 +53,37 @@ public class FileIO {
             Files.write(dataFile, contacts); // this overwrites by default
 
 
-            Scanner eb = new Scanner(System.in);
-
-            boolean userContinue = true;
+//            Scanner eb = new Scanner(System.in);
             do {
-                System.out.println("Would you like to add a new contact? ");
-                int addContacts = eb.nextInt();
-                System.out.println();
-                System.out.println("Here is the updated contact list!");
-                System.out.println();
-                System.out.println("Name  |  Phone Number  |");
-                System.out.println("------ | ------ |");
-                for (int i = 0; i <= addContacts; i++) {
-                    System.out.printf("%-6d", i);
-                    System.out.print(" | ");
-                    System.out.printf("%-7d", i * i);
-                    System.out.print(" | ");
-                    System.out.println(i * i * i);
+                printMenu();
+
+                int choice = getUserChoice();
+                doUserChoice(choice);
+                if (choice == 5){
+                    break;
                 }
-                System.out.println();
-                System.out.println("Would you like enter another contact? (y/n)");
-                String userResponse = eb.next();
-                if (!(userResponse.equalsIgnoreCase("y"))) {
-                    userContinue = false;
-                }
-            } while (userContinue);
+
+//                System.out.println("Would you like to add a new contact? ");
+//                userContinue = input.yesNo();
+//                System.out.println();
+//                System.out.println("Here is the updated contact list!");
+//                System.out.println();
+//                System.out.println("Name  |  Phone Number  |");
+//                System.out.println("------ | ------ |");
+//                for (int i = 0; i <= addContacts; i++) {
+//                    System.out.printf("%-6d", i);
+//                    System.out.print(" | ");
+//                    System.out.printf("%-7d", i * i);
+//                    System.out.print(" | ");
+//                    System.out.println(i * i * i);
+//                }
+//                System.out.println();
+//                System.out.println("Would you like enter another contact? (y/n)");
+//                String userResponse = eb.nextLine();
+//                if (!(userResponse.equalsIgnoreCase("y"))) {
+//                    userContinue = false;
+//                }
+            } while (true);
 
             System.out.println("See you later!");
 
@@ -86,6 +92,26 @@ public class FileIO {
 //            System.out.println("Hey an exception happened: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private static void doUserChoice(int choice) {
+        switch (choice){
+            case 1 :
+                System.out.println("You choose one.");
+                break;
+            case 2 :
+                System.out.println("You choose two.");
+                break;
+
+        }
+    }
+
+    private static int getUserChoice() {
+        return input.getInt();
+    }
+
+    private static void printMenu() {
+        System.out.println("menu");
     }
 }
 
