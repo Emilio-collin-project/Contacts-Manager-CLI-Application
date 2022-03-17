@@ -13,6 +13,27 @@ public class ContactApp {
     public static ArrayList<Contact> contactsList;
 
     public static void main(String[] args) {
+
+        String directory = "src";
+        String filename = "contacts.txt";
+
+        Path dataDirectory = Paths.get(directory);
+        Path dataFile = Paths.get(directory, filename); // path object is like this src/contacts.txt
+
+        if (Files.notExists(dataDirectory)) {
+            Files.createDirectories(dataDirectory);
+        }
+
+        if (! Files.exists(dataFile)) {
+            Files.createFile(dataFile);
+        }
+
+
+
+
+
+
+
         try {
             contactsList = new ArrayList<>();
 
@@ -44,7 +65,7 @@ public class ContactApp {
                 break;
             // make a function for add new contacts
             case 2:
-                System.out.println("Add a new contact.");
+                System.out.println(ContactFunctions.addContact(contactsList, input).get(0).getName());
                 break;
             //make a function search by name
             case 3:
@@ -65,6 +86,8 @@ public class ContactApp {
 
     private static void printMenu() {
         System.out.println("Menu \n");
+        System.out.println("1. View contact.\n" + "2. Add a new contact. \n" + "3. Search a contact by name. \n" + "4. Delete an existing contact. \n" + "5. Exit. \n" + "Enter an option (1, 2, 3, 4 or 5): \n");
+
     }
 }
 
