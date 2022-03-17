@@ -6,11 +6,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 
-public class FileIO {
+public class ContactApp {
     public static Input input = new Input();
+
     public static void main(String[] args) {
         try {
 
@@ -59,49 +59,40 @@ public class FileIO {
 
                 int choice = getUserChoice();
                 doUserChoice(choice);
-                if (choice == 5){
+                if (choice == 5) {
                     break;
                 }
 
-//                System.out.println("Would you like to add a new contact? ");
-//                userContinue = input.yesNo();
-//                System.out.println();
-//                System.out.println("Here is the updated contact list!");
-//                System.out.println();
-//                System.out.println("Name  |  Phone Number  |");
-//                System.out.println("------ | ------ |");
-//                for (int i = 0; i <= addContacts; i++) {
-//                    System.out.printf("%-6d", i);
-//                    System.out.print(" | ");
-//                    System.out.printf("%-7d", i * i);
-//                    System.out.print(" | ");
-//                    System.out.println(i * i * i);
-//                }
-//                System.out.println();
-//                System.out.println("Would you like enter another contact? (y/n)");
-//                String userResponse = eb.nextLine();
-//                if (!(userResponse.equalsIgnoreCase("y"))) {
-//                    userContinue = false;
-//                }
             } while (true);
 
             System.out.println("See you later!");
 
 
-    }catch (IOException e) {
+        } catch (IOException e) {
 //            System.out.println("Hey an exception happened: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     private static void doUserChoice(int choice) {
-        switch (choice){
-            case 1 :
-                System.out.println("You choose one.");
+        switch (choice) {
+            // make a function for view contacts
+            case 1:
+                viewContacts.printContacts();
                 break;
-            case 2 :
-                System.out.println("You choose two.");
+            // make a function for add new contacts
+            case 2:
+                System.out.println("Add a new contact.");
                 break;
+            //make a function search by name
+            case 3:
+                System.out.println("Search a contact by name.");
+                break;
+            //make a function for deleting contact
+            case 4:
+                System.out.println("Delete an existing contact.");
+            case 5:
+                System.out.println("Exit.");
 
         }
     }
