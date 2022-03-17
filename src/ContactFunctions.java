@@ -1,19 +1,20 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ContactFunctions {
 
 
 
-    public static void printContacts(ArrayList<Contact> contacts) {
-        System.out.println("Here are the contacts. ");
-
-        for (int i = 0; i < contacts.size(); i++) {
-            Contact contact = contacts.get(i);
-            // For each iteration we want it to grab the contact at index i
-            System.out.println(contact);
-        }
-    }
+//    public static void printContacts(ArrayList<Contact> contacts) {
+//        System.out.println("Here are the contacts. ");
+//
+//        for (int i = 0; i < contacts.size(); i++) {
+//            Contact contact = contacts.get(i);
+//            // For each iteration we want it to grab the contact at index i
+//            System.out.println(contact);
+//        }
+//    }
 
     public static ArrayList<Contact> addContact(ArrayList<Contact> contactsList, Input input) {
         //Grab contacts name, phone number
@@ -28,6 +29,9 @@ public class ContactFunctions {
 
         // make a contact object
         //add contact object to contactslist
+    }
+    public static void contactsList(){
+
     }
 }
 
