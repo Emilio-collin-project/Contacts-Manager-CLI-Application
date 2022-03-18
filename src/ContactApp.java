@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ContactApp {
     public static Input input = new Input();
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         String directory = "src";
         String filename = "contacts.txt";
@@ -28,7 +28,7 @@ public class ContactApp {
             }
         }
 
-        if (! Files.exists(dataFile)) {
+        if (!Files.exists(dataFile)) {
             try {
                 Files.createFile(dataFile);
             } catch (IOException e) {
@@ -65,7 +65,7 @@ public class ContactApp {
         }
     }
 
-    public static void doUserChoice(int choice,Path contactPath ) {
+    public static void doUserChoice(int choice, Path contactPath) {
         switch (choice) {
             // make a function for view contacts
             case 1:
@@ -73,15 +73,15 @@ public class ContactApp {
                 break;
             // make a function for add new contacts
             case 2:
-              ContactFunctions.addContact(contactPath);
+                ContactFunctions.addContact(contactPath);
                 break;
             //make a function search by name
             case 3:
-                System.out.println("Search a contact by name.");
+                contactSearch(contactPath);
                 break;
             //make a function for deleting contact
             case 4:
-                System.out.println("Delete an existing contact.");
+                deleteName(contactPath);
             case 5:
                 System.out.println("Exit.");
 
@@ -97,7 +97,8 @@ public class ContactApp {
         System.out.println("1. View contacts.\n" + "2. Add a new contact. \n" + "3. Search a contact by name. \n" + "4. Delete an existing contact. \n" + "5. Exit. \n" + "Enter an option (1, 2, 3, 4 or 5): \n");
 
     }
-    public static void printContacts(Path contactPath){
+
+    public static void printContacts(Path contactPath) {
         List<String> contactsList = null;
         try {
             contactsList = Files.readAllLines(contactPath);
@@ -112,7 +113,7 @@ public class ContactApp {
 
     }
 
-    public static void contactSearch(Path contactPath){
+    public static void contactSearch(Path contactPath) {
         // read all the lines in the file save them in the list
         // prompt user who to search for
         // get userinput
@@ -123,8 +124,11 @@ public class ContactApp {
         List<String> lines = null;
         try {
             lines = Files.readAllLines(contactPath);
+            Scanner cj = new Scanner(System.in);
+            System.out.println("Please enter in the name you want to search.");
+            String searchName = cj.nextLine();
             for (String line : lines) {
-                if (line.equals(input)) {
+                if (line.contains(searchName)) {
                     System.out.println(line);
                     break;
                 }
@@ -132,10 +136,37 @@ public class ContactApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+        public static void deleteName(Path contactPath) {
+
+            List<String> newLines = null;
+            List<String> newList;
+
+            try {
+                newLines = Files.readAllLines(contactPath);
+                newList = new ArrayList<>();
+                Scanner cj = new Scanner(System.in);
+                System.out.println("Please enter in the name you want to delete.");
+                String deleteSelectedName = cj.nextLine();
+                for (String line : newLines) {
+                    if (line.contains(deleteSelectedName)) {
+                        newList.remove(deleteSelectedName);
+                        continue;
+                    }
+                    newList.remove(deleteSelectedName);
+                }
+                Files.write(Paths.get("src", "contacts.txt"), newList);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
 
     }
-}
+
+    // read all lines in file
+    //
 
 
 
