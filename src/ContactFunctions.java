@@ -1,4 +1,10 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +22,7 @@ public class ContactFunctions {
 //        }
 //    }
 
-    public static ArrayList<Contact> addContact(ArrayList<Contact> contactsList, Input input) {
+    public static void addContact(Path filePath) {
         //Grab contacts name, phone number
         Scanner eb = new Scanner(System.in);
         System.out.println("Please enter new Contact Name.");
@@ -24,14 +30,18 @@ public class ContactFunctions {
         System.out.println("Please Enter Phone number for new contact.");
         String contactPhoneNumber = eb.nextLine();
         Contact newContact = new Contact(contactName, contactPhoneNumber);
-        contactsList.add(newContact);
-        return contactsList;
-
+        String contactToAdd = newContact.toString();
+        try {
+            Files.write(
+                    filePath,
+                    Arrays.asList(contactToAdd), // list with one item
+                    StandardOpenOption.APPEND
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // make a contact object
         //add contact object to contactslist
-    }
-    public static void contactsList(){
-
     }
 }
 
