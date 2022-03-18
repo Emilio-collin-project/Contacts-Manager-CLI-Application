@@ -151,12 +151,11 @@ public class ContactApp {
                 String deleteSelectedName = cj.nextLine();
                 for (String line : newLines) {
                     if (line.contains(deleteSelectedName)) {
-                        newList.remove(deleteSelectedName);
                         continue;
                     }
-                    newList.remove(deleteSelectedName);
+                    newList.add(line);
                 }
-                Files.write(Paths.get("src", "contacts.txt"), newList);
+                Files.write(contactPath, newList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
