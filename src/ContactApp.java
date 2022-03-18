@@ -6,13 +6,13 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class ContactApp {
     public static Input input = new Input();
-    public static List<Contact> contactsList;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
 
         String directory = "src";
         String filename = "contacts.txt";
@@ -21,21 +21,27 @@ public class ContactApp {
         Path dataFile = Paths.get(directory, filename); // path object is like this src/contacts.txt
 
         if (Files.notExists(dataDirectory)) {
-            Files.createDirectories(dataDirectory);
+            try {
+                Files.createDirectories(dataDirectory);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         if (! Files.exists(dataFile)) {
-            Files.createFile(dataFile);
+            try {
+                Files.createFile(dataFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         Path contactPath = Paths.get(directory, filename);
-        List<String> contactStringList = Files.readAllLines(contactPath);
-        contactsList = contactInfo(contactStringList);
-
-
-
-
-
-
+//        List<String> contactStringList = null;
+//        try {
+//            contactStringList = Files.readAllLines(contactPath);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         try {
 
@@ -43,7 +49,7 @@ public class ContactApp {
                 printMenu();
 
                 int choice = getUserChoice();
-                doUserChoice(choice, contactStringList);
+                doUserChoice(choice, contactPath);
                 if (choice == 5) {
                     break;
                 }
@@ -59,15 +65,15 @@ public class ContactApp {
         }
     }
 
-    public static void doUserChoice(int choice,List<String> contactStringList ) {
+    public static void doUserChoice(int choice,Path contactPath ) {
         switch (choice) {
             // make a function for view contacts
             case 1:
-                printContacts(contactStringList);
+                printContacts(contactPath);
                 break;
             // make a function for add new contacts
             case 2:
-//                System.out.println(ContactFunctions.addContact(contactsList, input).get(0).getName());
+              ContactFunctions.addContact(contactPath);
                 break;
             //make a function search by name
             case 3:
@@ -91,7 +97,13 @@ public class ContactApp {
         System.out.println("1. View contacts.\n" + "2. Add a new contact. \n" + "3. Search a contact by name. \n" + "4. Delete an existing contact. \n" + "5. Exit. \n" + "Enter an option (1, 2, 3, 4 or 5): \n");
 
     }
-    public static void printContacts(List<String> contactsList){
+    public static void printContacts(Path contactPath){
+        List<String> contactsList = null;
+        try {
+            contactsList = Files.readAllLines(contactPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Name  |  Phone Number");
         System.out.println("----------");
         for (int i = 0; i < contactsList.size(); i += 1) {
@@ -99,14 +111,29 @@ public class ContactApp {
         }
 
     }
-    public static List<Contact> contactInfo(List<String> contactStringList){
-        List<Contact> newContacts = new ArrayList<>();
-        for (int i = 0; i < contactStringList.size(); i++) {
-            String[] spiltString = contactStringList.get(i).split("\\| ");
-            System.out.println(spiltString[0]);
-            System.out.println(spiltString[1]);
+
+    public static void contactSearch(Path contactPath){
+        // read all the lines in the file save them in the list
+        // prompt user who to search for
+        // get userinput
+        // looped through the list of lines
+        // inside the loop check if it matches userinput
+        // if it matches print it out
+
+        List<String> lines = null;
+        try {
+            lines = Files.readAllLines(contactPath);
+            for (String line : lines) {
+                if (line.equals(input)) {
+                    System.out.println(line);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return newContacts;
+
+
     }
 }
 
