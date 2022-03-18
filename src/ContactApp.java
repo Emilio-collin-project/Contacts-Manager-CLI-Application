@@ -2,12 +2,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class ContactApp {
     public static Input input = new Input();
@@ -36,12 +33,6 @@ public class ContactApp {
             }
         }
         Path contactPath = Paths.get(directory, filename);
-//        List<String> contactStringList = null;
-//        try {
-//            contactStringList = Files.readAllLines(contactPath);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         try {
 
@@ -56,7 +47,7 @@ public class ContactApp {
 
             } while (true);
 
-            System.out.println("See you later!");
+            System.out.println(ConsoleColors.RED_BRIGHT + "See you later!" + ConsoleColors.RESET);
 
 
         } catch (Exception e) {
@@ -83,8 +74,7 @@ public class ContactApp {
             case 4:
                 deleteName(contactPath);
             case 5:
-                System.out.println("Exit.");
-
+                System.out.println(ConsoleColors.CYAN_BRIGHT + "Exit." + ConsoleColors.RESET);
         }
     }
 
@@ -93,9 +83,21 @@ public class ContactApp {
     }
 
     private static void printMenu() {
-        System.out.println("Menu \n");
-        System.out.println("1. View contacts.\n" + "2. Add a new contact. \n" + "3. Search a contact by name. \n" + "4. Delete an existing contact. \n" + "5. Exit. \n" + "Enter an option (1, 2, 3, 4 or 5): \n");
-
+        System.out.println(ConsoleColors.BLUE_BRIGHT + "___________       .__.__  .__                            .___ _________        .__  .__  .__     /\\                                     \n" +
+                "\\_   _____/ _____ |__|  | |__| ____   _____    ____    __| _/ \\_   ___ \\  ____ |  | |  | |__| ___)/  ______                             \n" +
+                " |    __)_ /     \\|  |  | |  |/  _ \\  \\__  \\  /    \\  / __ |  /    \\  \\/ /  _ \\|  | |  | |  |/    \\ /  ___/                             \n" +
+                " |        \\  Y Y  \\  |  |_|  (  <_> )  / __ \\|   |  \\/ /_/ |  \\     \\___(  <_> )  |_|  |_|  |   |  \\\\___ \\                              \n" +
+                "/_______  /__|_|  /__|____/__|\\____/  (____  /___|  /\\____ |   \\______  /\\____/|____/____/__|___|  /____  >                             \n" +
+                "        \\/      \\/                         \\/     \\/      \\/          \\/                         \\/     \\/                              \n" +
+                "_________                __                 __              _____                                                 _____                 \n" +
+                "\\_   ___ \\  ____   _____/  |______    _____/  |_  ______   /     \\ _____    ____ _____     ____   ___________    /  _  \\ ______ ______  \n" +
+                "/    \\  \\/ /  _ \\ /    \\   __\\__  \\ _/ ___\\   __\\/  ___/  /  \\ /  \\\\__  \\  /    \\\\__  \\   / ___\\_/ __ \\_  __ \\  /  /_\\  \\\\____ \\\\____ \\ \n" +
+                "\\     \\___(  <_> )   |  \\  |  / __ \\\\  \\___|  |  \\___ \\  /    Y    \\/ __ \\|   |  \\/ __ \\_/ /_/  >  ___/|  | \\/ /    |    \\  |_> >  |_> >\n" +
+                " \\______  /\\____/|___|  /__| (____  /\\___  >__| /____  > \\____|__  (____  /___|  (____  /\\___  / \\___  >__|    \\____|__  /   __/|   __/ \n" +
+                "        \\/            \\/          \\/     \\/          \\/          \\/     \\/     \\/     \\//_____/      \\/                \\/|__|   |__|    " + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.YELLOW_BRIGHT + "*********************************************************************************************************************************************" + ConsoleColors.RESET);
+        System.out.println("\n");
+        System.out.println(ConsoleColors.CYAN_BRIGHT + "1. View contacts.\n" + ConsoleColors.RESET + ConsoleColors.PURPLE_BRIGHT + "2. Add a new contact. \n" + ConsoleColors.RESET + ConsoleColors.BLUE_BRIGHT + "3. Search a contact by name. \n" + ConsoleColors.RESET + ConsoleColors.RED_BRIGHT + "4. Delete an existing contact. \n" + ConsoleColors.RESET + ConsoleColors.GREEN_BRIGHT + "5. Exit. \n" + ConsoleColors.RESET + ConsoleColors.YELLOW_BRIGHT + "Enter an option (1, 2, 3, 4 or 5): \n" + ConsoleColors.RESET);
     }
 
     public static void printContacts(Path contactPath) {
@@ -105,12 +107,11 @@ public class ContactApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Name  |  Phone Number");
-        System.out.println("----------");
+        System.out.println(ConsoleColors.CYAN_BRIGHT + "Name  |  Phone Number" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED_BRIGHT + "---------------------" + ConsoleColors.RESET);
         for (int i = 0; i < contactsList.size(); i += 1) {
-            System.out.println(contactsList.get(i));
+            System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + contactsList.get(i) + ConsoleColors.RESET);
         }
-
     }
 
     public static void contactSearch(Path contactPath) {
@@ -125,7 +126,7 @@ public class ContactApp {
         try {
             lines = Files.readAllLines(contactPath);
             Scanner cj = new Scanner(System.in);
-            System.out.println("Please enter in the name you want to search.");
+            System.out.println(ConsoleColors.BLUE + "Please enter in the name you want to search." + ConsoleColors.RESET);
             String searchName = cj.nextLine();
             for (String line : lines) {
                 if (line.contains(searchName)) {
@@ -138,53 +139,26 @@ public class ContactApp {
         }
     }
 
-        public static void deleteName(Path contactPath) {
+    public static void deleteName(Path contactPath) {
 
-            List<String> newLines = null;
-            List<String> newList;
+        List<String> newLines = null;
+        List<String> newList;
 
-            try {
-                newLines = Files.readAllLines(contactPath);
-                newList = new ArrayList<>();
-                Scanner cj = new Scanner(System.in);
-                System.out.println("Please enter in the name you want to delete.");
-                String deleteSelectedName = cj.nextLine();
-                for (String line : newLines) {
-                    if (line.contains(deleteSelectedName)) {
-                        continue;
-                    }
-                    newList.add(line);
+        try {
+            newLines = Files.readAllLines(contactPath);
+            newList = new ArrayList<>();
+            Scanner cj = new Scanner(System.in);
+            System.out.println(ConsoleColors.GREEN + "Please enter in the name you want to delete." + ConsoleColors.RESET);
+            String deleteSelectedName = cj.nextLine();
+            for (String line : newLines) {
+                if (line.contains(deleteSelectedName)) {
+                    continue;
                 }
-                Files.write(contactPath, newList);
-            } catch (IOException e) {
-                e.printStackTrace();
+                newList.add(line);
             }
-
+            Files.write(contactPath, newList);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
-
-    // read all lines in file
-    //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

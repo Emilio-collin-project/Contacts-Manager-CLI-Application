@@ -67,10 +67,3 @@ public class Input {
         }
     }
 }
-
-//    public double getDouble() {
-//        double min = 1;
-//        double max = 10;
-//        return getDouble(min ,max);
-//    }
-//}

@@ -1,33 +1,19 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class ContactFunctions {
 
-
-
-//    public static void printContacts(ArrayList<Contact> contacts) {
-//        System.out.println("Here are the contacts. ");
-//
-//        for (int i = 0; i < contacts.size(); i++) {
-//            Contact contact = contacts.get(i);
-//            // For each iteration we want it to grab the contact at index i
-//            System.out.println(contact);
-//        }
-//    }
-
     public static void addContact(Path filePath) {
         //Grab contacts name, phone number
         Scanner eb = new Scanner(System.in);
-        System.out.println("Please enter new Contact Name.");
+        System.out.println(ConsoleColors.PURPLE_BRIGHT + "Please enter new Contact Name." + ConsoleColors.RESET);
         String contactName = eb.nextLine();
-        System.out.println("Please Enter Phone number for new contact.");
+        System.out.println(ConsoleColors.YELLOW_BRIGHT + "Please Enter Phone number for new contact." + ConsoleColors.RESET);
         String contactPhoneNumber = eb.nextLine();
         Contact newContact = new Contact(contactName, contactPhoneNumber);
         String contactToAdd = newContact.toString();
@@ -44,4 +30,3 @@ public class ContactFunctions {
         //add contact object to contactslist
     }
 }
-
